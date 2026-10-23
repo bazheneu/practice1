@@ -82,10 +82,8 @@
   .hint[hidden] { display: none; }
   #status { font-size: 14px; min-height: 1.4em; margin-top: 10px; }
 
+  #pdf-wrap { position: fixed; left: 0; top: 0; width: 0; height: 0; overflow: hidden; pointer-events: none; }
   #pdf-sheet {
-    position: absolute;
-    left: -10000px;
-    top: 0;
     width: 700px;
     padding: 32px;
     background: #fff;
@@ -127,7 +125,8 @@
   <div id="status" role="status" aria-live="polite"></div>
 </main>
 
-<div id="pdf-sheet" aria-hidden="true">
+<div id="pdf-wrap" aria-hidden="true">
+<div id="pdf-sheet">
   <h2>Практика: моя роль саблида</h2>
   <p class="date" id="pdf-date"></p>
   <h3>1. Что тебя вдохновляет в роли саблида?</h3>
@@ -136,6 +135,7 @@
   <p class="ans" id="pdf-a2a"></p>
   <p class="ans" id="pdf-a2b"></p>
   <p class="ans" id="pdf-a2c"></p>
+</div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -160,6 +160,7 @@
     $('pdf-a2c').textContent = '3) ' + $('q2c').value.trim();
     $('pdf-date').textContent = new Date().toLocaleDateString('ru-RU');
     status.textContent = 'Готовлю PDF…';
+    window.scrollTo(0, 0);
 
     function fallback() {
       status.textContent = 'Не удалось создать PDF автоматически. В открывшемся окне печати выбери «Сохранить как PDF».';
